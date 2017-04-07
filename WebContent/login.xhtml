@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Login</title>
+	<h:outputStylesheet library="sistemacomercialerp/styles"
+		name="login.css" />
+	<h:outputStylesheet library="sistemacomercialerp/styles"
+		name="custom.css" />
+
+	<script>
+	function toUpperCase(texto){
+				texto.value = texto.value.toUpperCase();
+				}
+		</script>
+
+</h:head>
+
+<h:body>
+
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		oncomplete="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" draggable="false" closable="false"
+		resizable="false" showHeader="false" responsive="true">
+		<h:graphicImage library="sistemacomercialerp/images" name="circle.gif" />
+	</p:dialog>
+
+
+	<div id="login-dialog">
+		<h:form id="frm" prependId="false">
+
+			<div class="ui-fluid">
+				<p:panel header="Login">
+					<p:messages autoUpdate="true" />
+					<p:panelGrid id="panelFiltroPesquisaProduto" columns="2"
+						layout="grid" columnClasses="ui-grid-col-10, ui-grid-col-2"
+						styleClass="panelgrid-noborder" style="margin-top:20px;">
+
+						<p:inputText value="#{loginBeanController.nomeUsuario}"
+							id="nomeUsuario" style="width: 300px;" onblur="toUpperCase(this)" />
+						<p:watermark value="Usuário" for="nomeUsuario" />
+
+						<p:password value="#{loginBeanController.senha}" id="senhaLogin"
+							style="width: 300px;" />
+						<p:watermark value="Senha" for="senhaLogin" />
+
+						<p:commandButton value="Confirmar"
+							action="#{loginBeanController.login}"
+							style="margin-top: 20px; width: 150px;" icon="fa fa-sign-in" />
+					</p:panelGrid>
+				</p:panel>
+			</div>
+
+		</h:form>
+	</div>
+</h:body>
+
+</html>

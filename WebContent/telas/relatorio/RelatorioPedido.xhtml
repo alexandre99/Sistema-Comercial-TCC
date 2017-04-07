@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="content">
+		<h1 class="aw-page-title">Relatório de Pedido</h1>
+
+		<h:form id="frm">
+
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton id="reiprimirPedido" value="Imprimir Relatório"
+						action="#{relatorioPedidoController.imprimirRelatorioPedido}"
+						icon="fa  fa-fw  fa-file-text" onclick="this.form.target='_blank'"
+						ajax="false" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<div class="ui-fluid">
+
+				<p:panelGrid id="panelFiltroPesquisaProduto" columns="4"
+					layout="grid"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+					styleClass="panelgrid-noborder" style="margin-top:20px;">
+
+					<p:outputLabel value="Tipo Relatório" for="tipoRelatorio" />
+					<p:selectOneRadio id="tipoRelatorio"
+						value="#{relatorioPedidoController.tipoRelatorio}">
+						<f:selectItem itemLabel="Simplificado" itemValue="Simplificado" />
+						<f:selectItem itemLabel="Completo" itemValue="Completo" />
+					</p:selectOneRadio>
+
+					<p:outputLabel value="Situação Pedido" for="situacaoPedido" />
+					<p:selectOneMenu id="situacaoPedido"
+						value="#{relatorioPedidoController.situacao}"
+						style="width: 170px;">
+						<f:selectItems value="#{relatorioPedidoController.situacaoPedido}"
+							var="situacao" itemLabel="#{situacao.descricao}"
+							itemValue="#{situacao}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data Inicial" for="dataInicial" />
+					<p:calendar id="dataInicial"
+						value="#{relatorioPedidoController.dataInicial}" locale="pt"
+						pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"
+						style="width: 170px;" />
+
+					<p:outputLabel value="Data Final" for="dataFinal" />
+					<p:calendar id="dataFinal"
+						value="#{relatorioPedidoController.dataFinal}" locale="pt"
+						pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"
+						style="width: 170px;" />
+
+					<p:outputLabel value="Cliente" for="cliente" />
+					<p:autoComplete id="cliente"
+						value="#{relatorioPedidoController.cliente}"
+						converter="clienteConverter" minQueryLength="3"
+						forceSelection="true" maxResults="10" var="cliente"
+						itemLabel="#{cliente.nome}" itemValue="#{cliente}"
+						completeMethod="#{relatorioPedidoController.autoCompleteCliente}"
+						queryDelay="500" style="width: 170px;">
+
+					</p:autoComplete>
+
+					<p:outputLabel value="Vendedor" for="vendedor" />
+					<p:autoComplete id="vendedor"
+						value="#{relatorioPedidoController.usuario}"
+						converter="usuarioConverter" minQueryLength="3"
+						forceSelection="true" maxResults="10" var="vendedor"
+						itemLabel="#{vendedor.nome}" itemValue="#{vendedor}"
+						completeMethod="#{relatorioPedidoController.autoCompleteVendedor}"
+						queryDelay="500" style="width: 170px;">
+					</p:autoComplete>
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid id="panelDadosPrincipais" columns="4" layout="grid"
+		columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+		styleClass="panelgrid-noborder" style="margin-top:20px;">
+
+		<p:outputLabel value="Ativo" for="ativo" />
+		<p:selectBooleanCheckbox id="ativo"
+			value="#{produtoController.produto.ativo}">
+			<p:ajax event="change" />
+		</p:selectBooleanCheckbox>
+
+		<p:outputLabel value="Data de Cadastro" for="dataCadastro" />
+		<p:calendar id="dataCadastro"
+			value="#{produtoController.produto.dataCadastro}" locale="pt"
+			pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" disabled="true" />
+
+		<p:outputLabel value="Referência" for="referencia" />
+		<p:inputText id="referencia" maxlength="30"
+			value="#{produtoController.produto.codigoBarras}"
+			onblur="strToUpper(this)">
+		</p:inputText>
+
+		<p:outputLabel value="Descrição" for="descricao" />
+		<p:inputText id="descricao" maxlength="50"
+			value="#{produtoController.produto.descricao}"
+			onblur="strToUpper(this)" />
+
+		<p:outputLabel value="Unidade de Venda" for="un" />
+		<p:selectOneMenu id="un"
+			value="#{produtoController.produto.unidadeVenda}">
+			<f:selectItems value="#{produtoController.unidadesVenda}"
+				var="produto" itemLabel="#{produto.descricao}"
+				itemValue="#{produto}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel />
+		<p:outputLabel />
+
+		<p:outputLabel value="Preço de Custo" for="custo" />
+		<p:inputText id="custo" styleClass="moeda"
+			value="#{produtoController.produto.precoCusto}" maxlength="10"
+			onblur="calculaValorVendaAtravesMargemDeLucro()">
+			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+		</p:inputText>
+
+		<p:outputLabel value="% Lucro" for="lucro" />
+		<p:inputText id="lucro" styleClass="moeda"
+			value="#{produtoController.produto.percentualVenda}" maxlength="10"
+			onblur="calculaValorVendaAtravesMargemDeLucro()">
+			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+		</p:inputText>
+
+		<p:outputLabel value="Preço de Venda" for="venda" />
+		<p:inputText id="venda" styleClass="moeda"
+			value="#{produtoController.produto.precoVenda}" maxlength="10"
+			onblur="calcularPorcentagemLucro()">
+			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+		</p:inputText>
+
+		<p:outputLabel value="Qtd. Estoque" for="qtdItens" />
+		<p:inputText id="qtdItens" onfocus="focoCampoQuantidadeEstoque()"
+			onblur="saidaCampoQuantidadeEstoque()"
+			value="#{produtoController.produto.quantidade}" maxlength="5">
+			<f:convertNumber maxFractionDigits="2" />
+		</p:inputText>
+
+		<p:outputLabel value="Observações" for="observacoes" />
+		<p:inputTextarea id="observacoes" rows="7"
+			value="#{produtoController.produto.observacao}"
+			onblur="strToUpper(this)" />
+
+	</p:panelGrid>
+
+</ui:composition>

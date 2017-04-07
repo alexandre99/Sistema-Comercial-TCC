@@ -1,0 +1,48 @@
+/* BASE */
+body {
+	margin: 0;
+	font-size: 13px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* TABVIEW */
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+	color: #555;
+}
+
+@media ( max-width : 640px) {
+	.ui-tabs.ui-tabs-top>.ui-tabs-nav li {
+		width: 100%;
+	}
+}
+
+/* PANELGRID */
+.ui-panelgrid.panelgrid-noborder .ui-grid-responsive {
+	border: none;
+}
+
+@media ( max-width : 640px) {
+	.ui-panelgrid.panelgrid-noborder .ui-grid-responsive .ui-grid-row {
+		border: none;
+	}
+}
+
+.pattern-button {
+	width: 100%;
+}
+
+.situacao {
+	color: red;
+}
+
+.ui-panelgrid-cell ui-grid-col-6 {
+	width: 50% !important;
+}
+
+.ui-fluid .ui-calendar, .ui-fluid .ui-calendar input{
+	width: 170px !important;
+}
+
+.ui-panel-titlebar, ui-widget-header{
+	background: #1e94d2 !important;
+}

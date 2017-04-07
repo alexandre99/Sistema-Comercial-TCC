@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="content">
+		<h1 class="aw-page-title">Cadastro de Empresa</h1>
+
+
+		<h:form id="frm" prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" process="@this panelCadastro"
+						update="@form" action="#{empresaController.salvar}"
+						icon="fa fa-fw fa-save" styleClass="pattern-button" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<div class="ui-fluid">
+				<p:panelGrid id="panelCadastro" columns="4" layout="grid"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+					styleClass="panelgrid-noborder" style="margin-top:20px;">
+
+					<p:outputLabel value="Razão Social" for="razaoSocial" />
+					<p:inputText id="razaoSocial" maxlength="50"
+						value="#{empresaController.empresa.razaoSocial}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Nome Fantasia" for="nomeFantasia" />
+					<p:inputText id="nomeFantasia" maxlength="50"
+						value="#{empresaController.empresa.nomeFantasia}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="CEP" for="cep" />
+					<p:inputMask id="cep" mask="99999-999" style="width: 70%"
+						value="#{empresaController.empresa.cep}" onchange="buscarCep()" />
+
+
+					<p:outputLabel value="Endereço" for="endereco" />
+					<p:inputText id="endereco" maxlength="40"
+						value="#{empresaController.empresa.endereco}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Bairro" for="bairro" />
+					<p:inputText id="bairro" maxlength="30"
+						value="#{empresaController.empresa.bairro}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Complemento" for="complemento" />
+					<p:inputText id="complemento" maxlength="40"
+						value="#{empresaController.empresa.complemento}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Número" for="numero" />
+					<p:inputText id="numero" maxlength="10" style="width: 30%"
+						value="#{empresaController.empresa.numero}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Cidade" for="cidade" />
+					<p:inputText id="cidade" maxlength="30"
+						value="#{empresaController.empresa.cidade}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Estado" for="estado" />
+					<p:selectOneMenu id="estado" widgetVar="uf"
+						value="#{empresaController.empresa.estado}">
+						<f:selectItems value="#{empresaController.listaEstado}"
+							var="estado" itemLabel="#{estado.descricao}"
+							itemValue="#{estado}" />
+						<p:ajax event="change" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="País" for="pais" />
+					<p:inputText id="pais" maxlength="30"
+						value="#{empresaController.empresa.pais}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="CNPJ" for="cnpj" />
+					<p:inputMask id="cnpj" mask="99.999.999/9999-99" style="width: 70%"
+						value="#{empresaController.empresa.cnpj}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Inscrição Estadual" for="inscricaoEstadual" />
+					<p:inputText id="inscricaoEstadual" maxlength="20"
+						style="width: 70%"
+						value="#{empresaController.empresa.inscricaoEstadual}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Inscrição Municipal" for="inscricaoMunicipal" />
+					<p:inputText id="inscricaoMunicipal" maxlength="20"
+						style="width: 70%"
+						value="#{empresaController.empresa.inscricaoMunicipal}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask id="telefone" mask="(99) 9999-9999" style="width: 70%"
+						value="#{empresaController.empresa.telefone}" />
+
+					<p:outputLabel value="Fax" for="fax" />
+					<p:inputMask id="fax" mask="(99) 9999-9999" style="width: 70%"
+						value="#{empresaController.empresa.fax}" />
+
+					<p:outputLabel value="E-mail" for="email" />
+					<p:inputText id="email" maxlength="30"
+						value="#{empresaController.empresa.email}"
+						onblur="strToUpper(this)" />
+
+					<p:outputLabel value="Responsável" for="responsavel" />
+					<p:inputText id="responsavel" maxlength="30"
+						value="#{empresaController.empresa.responsavel}"
+						onblur="strToUpper(this)" />
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

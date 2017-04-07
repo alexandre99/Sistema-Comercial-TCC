@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:panelGrid id="panelCadastro" columns="4" layout="grid"
+		columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+		styleClass="panelgrid-noborder" style="margin-top:20px;">
+
+		<p:outputLabel value="Código do Pedido" for="codigo" />
+		<p:outputLabel id="codigo"
+			value="#{pedidoController.pedido.id eq null? '0' : pedidoController.pedido.id}" />
+		<p:outputLabel />
+		<p:outputLabel />
+
+		<p:outputLabel value="Data/Hora" for="dataHoraPedido" />
+		<p:calendar id="dataHoraPedido"
+			value="#{pedidoController.pedido.dataHora}" locale="pt"
+			pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo"
+			disabled="true" style="width: 170px;" />
+
+		<p:outputLabel value="Situação Pedido" for="situacaoPedido" />
+		<p:selectOneMenu id="situacaoPedido"
+			value="#{pedidoController.pedido.situacao}" style="width: 170px;">
+			<f:selectItems value="#{pedidoController.situacaoPedido}"
+				var="situacao" itemLabel="#{situacao.descricao}"
+				itemValue="#{situacao}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Vendedor" for="vendedor" />
+		<p:selectOneMenu id="vendedor"
+			value="#{pedidoController.pedido.vendedor}"
+			converter="usuarioConverter" filter="true" filterMatchMode="contains"
+			converterMessage="Erro ao converter o vendedor" style="width: 170px;">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItems value="#{pedidoController.listarVendedor}"
+				var="vendedor" itemValue="#{vendedor}" itemLabel="#{vendedor.nome}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Cliente" for="cliente" />
+		<p:selectOneMenu id="cliente"
+			value="#{pedidoController.pedido.cliente}"
+			converter="clienteConverter" filter="true" filterMatchMode="contains"
+			converterMessage="Erro ao converter o cliente" style="width: 170px;">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItems value="#{pedidoController.listarCliente}"
+				var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" />
+
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Forma de Pagamento" for="formaDePagamento" />
+		<p:selectOneMenu id="formaDePagamento"
+			value="#{pedidoController.pedido.formaDePagamento}"
+			style="width: 170px;">
+			<f:selectItems value="#{pedidoController.formaDePagamento}"
+				var="pagamento" itemLabel="#{pagamento.descricao}"
+				itemValue="#{pagamento}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Valor de Desconto" for="valorDesconto" />
+		<p:inputText id="valorDesconto" styleClass="moeda"
+			value="#{pedidoController.pedido.valorDesconto}" maxlength="10"
+			style="width: 170px; color:red;">
+			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+			<p:ajax event="change"
+				listener="#{pedidoController.calcularDescontoGlobal}"
+				update="valorDesconto totalBruto valorLiquido" />
+		</p:inputText>
+
+		<p:outputLabel value="Total do Bruto"
+			style="font-weight: bold; font-size: 1.0em" for="totalBruto" />
+		<h:outputText value="#{pedidoController.pedido.valorBruto}"
+			style="font-weight: bold; width: 50%;font-size: 1.0em"
+			id="totalBruto">
+			<f:convertNumber type="currency" />
+		</h:outputText>
+
+		<p:outputLabel value="Valor Final do Pedido"
+			style="font-weight: bold; font-size: 1.0em" for="valorLiquido" />
+		<h:outputText value="#{pedidoController.pedido.valorLiquido}"
+			style="font-weight: bold; width: 50%; font-size: 1.0em"
+			id="valorLiquido">
+			<f:convertNumber type="currency" />
+		</h:outputText>
+
+		<p:outputLabel />
+		<p:outputLabel />
+	</p:panelGrid>
+
+</ui:composition>
